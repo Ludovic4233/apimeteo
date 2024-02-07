@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Search from './components/Search';
 import Display from './components/Display';
+import Historic from './components/Historic';
 
 const App = () => {
 
@@ -15,15 +16,22 @@ const App = () => {
 
   //console.log(cityData);
 
-  // const [ histories, setHistories ] = useState();
-
   const getData = (data) => {
     setFormData(data)
   }
 
   //console.log(formData)
 
-  
+  const [ histories, setHistories ] = useState([]);
+
+  const handleHistories = () => {
+    setHistories(prevState => {
+      return [...histories, cityData]
+    })
+  }
+
+  //console.log(histories);
+
   useEffect(() => {
     fetch(apiUrl+`${formData.city}`+apiKey)
     .then(res => res.json())
@@ -34,7 +42,13 @@ const App = () => {
     <>
       <Search getData={getData} />
       {cityData &&
+      <>
         <Display cityData={cityData} />
+        <button onClick={handleHistories}>Obtenir historique</button>
+        {histories &&
+          <Historic histories={histories} />
+        }
+      </>
       }
     </>
   )
