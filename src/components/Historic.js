@@ -1,7 +1,15 @@
-const Historic = ({histories}) => {
+const Historic = ({ histories }) => {
 
     //console.log(histories)
+    const formattedDate = (numDate) => {
+        const timestamp = numDate;
+        const date = new Date(timestamp * 1000);
+        const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
+        const formattedDateString = date.toLocaleString('fr-FR', options); 
 
+        return formattedDateString;
+    }
+    
     return (
         <>
            <h1>Historique</h1>
@@ -14,6 +22,7 @@ const Historic = ({histories}) => {
                 <th>Humidité</th>
                 <th>Description</th>
                 <th>Vent</th>
+                <th>Date</th>
             </tr>
             {histories.map((history) => (
                 <tr key={history.id}>
@@ -24,6 +33,7 @@ const Historic = ({histories}) => {
                     <td>{history.main.humidity}</td>
                     <td>{history.weather[0].description}</td>
                     <td>{history.wind.speed}</td>
+                    <td>{formattedDate(history.dt)}</td>
                 </tr>
             ))}
            </table>
