@@ -1,6 +1,6 @@
 const Historic = ({histories}) => {
 
-    console.log(histories)
+    //console.log(histories)
 
     return (
         <>
