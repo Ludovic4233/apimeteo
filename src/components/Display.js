@@ -11,6 +11,7 @@ const Display = ({ cityData }) => {
                 <li>Température maximale: {cityData.main.temp_max} °C</li>
                 <li>Humidité: {cityData.main.humidity} </li>
                 <li>Description: {cityData.weather[0].description} </li>
+                <li>Vent: {cityData.wind.speed} </li>
             </ul>
 
         </>
