@@ -1,7 +1,6 @@
 const Display = ({ cityData }) => {
 
     //console.log(cityData)
-
     return (
         <>
             <h1>{cityData.name}</h1>
