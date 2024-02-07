@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react';
+import Search from './components/Search';
+import Display from './components/Display';
 
-function App() {
+const App = () => {
+
+  const apiKey = process.env.REACT_APP_API_KEY;
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  const [formData, setFormData] = useState({
+    city: 'Paris'
+  });
+
+  const [cityData, setCityData] = useState();
+
+  //console.log(cityData);
+
+  // const [ histories, setHistories ] = useState();
+
+  const getData = (data) => {
+    setFormData(data)
+  }
+
+  //console.log(formData)
+
+  
+  useEffect(() => {
+    fetch(apiUrl+`${formData.city}`+apiKey)
+    .then(res => res.json())
+    .then(resJson => setCityData(resJson))
+  }, [formData.city])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Search getData={getData} />
+      {cityData &&
+        <Display cityData={cityData} />
+      }
+    </>
+  )
 }
 
 export default App;
