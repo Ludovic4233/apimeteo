@@ -30,6 +30,10 @@ const App = () => {
     })
   }
 
+  const handleDeleteHistoric = () => {
+    setHistories([])
+  }
+
   //console.log(histories);
 
   useEffect(() => {
@@ -46,7 +50,10 @@ const App = () => {
         <Display cityData={cityData} />
         <button onClick={handleHistories}>Obtenir historique</button>
         {histories &&
+        <>
           <Historic histories={histories} />
+          <button onClick={handleDeleteHistoric}>supprimer historique</button>
+        </>
         }
       </>
       }
